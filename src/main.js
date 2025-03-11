@@ -12,10 +12,9 @@ const loader = document.querySelector('.loader');
 const loadBtn = document.querySelector('.load-more');
 
 let page = 1;
-let query = '';
+let query = ''; // Виправлено: Глобальна змінна буде оновлюватися
 let totalHits = 0;
 const perPage = 15;
-const lastPerPage = 15;
 
 function showLoader() {
   loader.classList.add('active');
@@ -36,7 +35,7 @@ function hideLoadBtn() {
 form.addEventListener('submit', async event => {
   event.preventDefault();
 
-  const query = input.value.trim();
+  query = input.value.trim(); // Виправлено: Оновлення глобальної змінної query
 
   if (!query) {
     iziToast.warning({
@@ -70,7 +69,8 @@ form.addEventListener('submit', async event => {
     renderImages(images);
     form.reset();
     totalHits = data.totalHits;
-    if (totalHits > page * perPage) showLoadBtn();
+
+    if (totalHits > perPage) showLoadBtn(); // Виправлено: Перевірка загальної кількості зображень
   } catch (error) {
     hideLoader();
 
@@ -88,9 +88,7 @@ loadBtn.addEventListener('click', async () => {
   showLoader();
 
   try {
-    const lastPage = Math.ceil(totalHits / perPage);
-    const isLastPage = page === lastPage;
-    
+    const lastPage = Math.ceil(totalHits / perPage); // Виправлено: Динамічний розрахунок останньої сторінки
 
     const data = await fetchImages(query, page, perPage);
     hideLoader();
@@ -103,7 +101,7 @@ loadBtn.addEventListener('click', async () => {
       .getBoundingClientRect();
     window.scrollBy({ top: height * 2, behavior: 'smooth' });
 
-    if (page >= lastPage) {
+    if (page >= lastPage) { // Виправлено: Перевірка останньої сторінки
       hideLoadBtn();
       iziToast.info({
         message: "We're sorry, but you've reached the end of search results",
