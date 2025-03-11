@@ -166,3 +166,19 @@ img {
 .loader.active {
   display: block;
 }
+
+.load-more {
+  display: none;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background-color: #4e75ff;
+  border: 1px solid #4e75ff;
+  border-radius: 8px;
+  width: 125px;
+  height: 40px;
+  padding: 8px 16px;
+  margin: 32px auto;
+}
